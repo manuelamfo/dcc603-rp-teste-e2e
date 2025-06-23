@@ -68,4 +68,60 @@ describe('TODOMvc App', () => {
       .children()
       .should('have.length', 2);
   });
+
+  it('Marca e desmarca uma atividade como completada', () => {
+    cy.visit('');
+
+    cy.get('[data-cy=todo-input]')
+      .type('Atividade importante{enter}');
+    
+    cy.get('[data-cy=todos-list] > li [data-cy=toggle-todo-checkbox]')
+      .first()
+      .click();
+    
+    cy.get('[data-cy=filter-completed-link]')
+      .click();
+
+    cy.get('[data-cy=todos-list]')
+      .children()
+      .should('have.length', 1);
+    
+    cy.get('[data-cy=todos-list] > li [data-cy=toggle-todo-checkbox]')
+      .first()
+      .click();
+
+    cy.get('[data-cy=todos-list]')
+      .children()
+      .should('have.length', 0);
+  })
+
+  it('Marca todas as atividades como completadas a partir do botão toggle all label', () => {
+    cy.visit('');
+
+    cy.get('[data-cy=todo-input]')
+      .type('Roteiro Prático 3{enter}')
+      .type('Atividade avaliativa{enter}');
+
+    cy.get('[data-cy=toggle-all-label]')
+      .click();
+    
+    cy.get('[data-cy=filter-active-link]')
+      .click()
+    
+    cy.get('[data-cy=todos-list]')
+      .children()
+      .should('have.length', 0);
+
+    cy.get('[data-cy=filter-completed-link')
+      .click()
+
+    cy.get('[data-cy=todos-list]')
+      .children()
+      .should('have.length', 2);
+  })
+
+  it('', () => {
+
+  })
+
 });
