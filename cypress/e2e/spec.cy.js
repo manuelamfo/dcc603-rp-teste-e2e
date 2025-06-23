@@ -120,8 +120,29 @@ describe('TODOMvc App', () => {
       .should('have.length', 2);
   })
 
-  it('', () => {
+  it('Usa o botão Clear completed para apagar as tarefas completadas', () => {
+    cy.visit('');
 
+    cy.get('[data-cy=todo-input]')
+      .type('Terminar Trabalho Prático{enter}')
+      .type('Fazer atividade{enter}');
+
+    
+    cy.get('[data-cy=todos-list] > li [data-cy=toggle-todo-checkbox]')
+      .first()
+      .click();
+
+    cy.get('[data-cy=todos-list]')
+      .children()
+      .should('have.length', 2);
+    
+    cy.get('[data-cy=clear-completed-button]')
+      .click();
+
+    cy.get('[data-cy=todos-list]')
+      .children()
+      .should('have.length', 1)
+      .first()
+      .should('have.text', 'Fazer atividade');
   })
-
 });
